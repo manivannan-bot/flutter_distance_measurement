@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../core/theme/app_decoration.dart';
+import '../../core/theme/app_style.dart';
 import '../../core/utils/size_utils.dart';
-import '../../theme/app_decoration.dart';
-import '../../theme/app_style.dart';
 
 class OtpScreen extends StatefulWidget {
   @override
@@ -73,7 +73,6 @@ class _OtpScreenState extends State<OtpScreen> {
                                     style: AppStyle.txtInterBold20.copyWith(
                                         height: getVerticalSize(1.00))))
                           ]),
-                      Spacer(),
                       Text("We  sent OTP code to verify your number",
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,

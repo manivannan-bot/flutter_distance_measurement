@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_decoration.dart';
+import '../../../core/theme/app_style.dart';
 import '../../../core/utils/color_constant.dart';
 import '../../../core/utils/size_utils.dart';
-import '../../../theme/app_decoration.dart';
-import '../../../theme/app_style.dart';
 
 // ignore: must_be_immutable
 class FareEditItemWidget extends StatelessWidget {

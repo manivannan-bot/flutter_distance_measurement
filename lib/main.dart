@@ -1,7 +1,12 @@
 import 'package:azep/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'core/utils/user_shared_preferences.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserSharedPreferences.init();
+
   runApp(MyApp());
 }
 

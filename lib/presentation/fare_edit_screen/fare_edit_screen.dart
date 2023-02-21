@@ -1,16 +1,13 @@
+import 'package:azep/presentation/fare_edit_screen/widgets/fare_edit_item_widget.dart';
 import 'package:flutter/material.dart';
 
-import '/widgets/app_bar/appbar_image.dart';
-import '/widgets/app_bar/appbar_title.dart';
-import '/widgets/app_bar/custom_app_bar.dart';
+import '../../core/theme/app_decoration.dart';
+import '../../core/theme/app_style.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/image_constant.dart';
 import '../../core/utils/size_utils.dart';
+import '../../core/widgets/custom_image_view.dart';
 import '../../routes/app_routes.dart';
-import '../../theme/app_decoration.dart';
-import '../../theme/app_style.dart';
-import '../../widgets/custom_image_view.dart';
-import '../fare_edit_screen/widgets/fare_edit_item_widget.dart';
 
 class FareEditScreen extends StatelessWidget {
   @override
@@ -18,27 +15,9 @@ class FareEditScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
             backgroundColor: ColorConstant.whiteA700,
-            appBar: CustomAppBar(
-                height: getVerticalSize(110.00),
-                leadingWidth: 44,
-                leading: AppbarImage(
-                    height: getSize(25.00),
-                    width: getSize(25.00),
-                    svgPath: ImageConstant.imgMenu,
-                    margin: getMargin(left: 19, top: 63, bottom: 22)),
-                title: AppbarTitle(
-                    text: "ORAM PO AUTO",
-                    margin: getMargin(left: 9, top: 62, bottom: 20)),
-                actions: [
-                  AppbarImage(
-                      height: getVerticalSize(20.00),
-                      width: getHorizontalSize(25.00),
-                      svgPath: ImageConstant.imgHome,
-                      margin:
-                          getMargin(left: 27, top: 64, right: 27, bottom: 26),
-                      onTap: () => onTapHome3(context))
-                ],
-                styleType: Style.bgFillBlueA200),
+            appBar: AppBar(
+              title: Text("Edit Fare Settings"),
+            ),
             body: Container(
                 width: size.width,
                 padding: getPadding(left: 21, top: 9, right: 21, bottom: 9),

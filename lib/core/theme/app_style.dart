@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../core/utils/color_constant.dart';
-import '../core/utils/size_utils.dart';
+import '../utils/color_constant.dart';
+import '../utils/size_utils.dart';
 
 class AppStyle {
   static TextStyle txtMinaBold9 = TextStyle(

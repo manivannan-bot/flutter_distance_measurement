@@ -1,16 +1,12 @@
+import 'package:flutter/material.dart';
 
+import '../../core/theme/app_decoration.dart';
+import '../../core/theme/app_style.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/image_constant.dart';
 import '../../core/utils/size_utils.dart';
+import '../../core/widgets/custom_image_view.dart';
 import '../../routes/app_routes.dart';
-import '../../theme/app_decoration.dart';
-import '../../theme/app_style.dart';
-import '../../widgets/custom_image_view.dart';
-import '/widgets/app_bar/appbar_image.dart';
-import '/widgets/app_bar/appbar_title.dart';
-import '/widgets/app_bar/custom_app_bar.dart';
-import '/widgets/custom_text_form_field.dart';
-import 'package:flutter/material.dart';
 
 // ignore_for_file: must_be_immutable
 class SearchScreen extends StatelessWidget {
@@ -35,29 +31,9 @@ class SearchScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                CustomAppBar(
-                                    height: getVerticalSize(56.00),
-                                    leadingWidth: 44,
-                                    leading: AppbarImage(
-                                        height: getSize(25.00),
-                                        width: getSize(25.00),
-                                        svgPath: ImageConstant.imgMenu,
-                                        margin: getMargin(left: 19, bottom: 1)),
-                                    title: AppbarTitle(
-                                        text: "ORAM PO AUTO ",
-                                        margin: getMargin(left: 9)),
-                                    actions: [
-                                      AppbarImage(
-                                          height: getVerticalSize(20.00),
-                                          width: getHorizontalSize(25.00),
-                                          svgPath: ImageConstant.imgHome,
-                                          margin: getMargin(
-                                              left: 21,
-                                              top: 1,
-                                              right: 21,
-                                              bottom: 5),
-                                          onTap: () => onTapHome9(context))
-                                    ]),
+                                AppBar(
+                                  title: Text("AZEP"),
+                                ),
                                 Padding(
                                     padding: getPadding(top: 18, right: 22),
                                     child: Row(
@@ -110,20 +86,6 @@ class SearchScreen extends StatelessWidget {
                                                                           height:
                                                                               getVerticalSize(1.00))))
                                                         ])),
-                                                CustomTextFormField(
-                                                    width: 288,
-                                                    focusNode: FocusNode(),
-                                                    controller:
-                                                        groupSeventySixController,
-                                                    hintText: "Destination",
-                                                    margin: getMargin(top: 11),
-                                                    variant:
-                                                        TextFormFieldVariant
-                                                            .OutlineWhiteA700,
-                                                    shape: TextFormFieldShape
-                                                        .RoundedBorder10,
-                                                    textInputAction:
-                                                        TextInputAction.done)
                                               ]),
                                           CustomImageView(
                                               imagePath:

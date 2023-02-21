@@ -1,3 +1,4 @@
+import 'package:azep/presentation/menu_draweritem/menu_draweritem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -68,8 +69,11 @@ class _HomeStartScreenState extends State<HomeStartScreen> {
       appBar: AppBar(
         title: Text("AZEP"),
       ),
+      drawer: MenuDraweritem(),
       body: Stack(children: [
         GoogleMap(
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
           initialCameraPosition: CameraPosition(
             target: LatLng(10.97493035817797, 76.96178550395031),
             zoom: 16,
