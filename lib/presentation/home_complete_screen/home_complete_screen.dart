@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -11,20 +13,15 @@ class HomeCompleteScreen extends StatefulWidget {
   State<HomeCompleteScreen> createState() => _HomeCompleteScreenState();
 }
 
-class _HomeCompleteScreenState extends State<HomeCompleteScreen> {
-  late GoogleMapController mapController;
-  late Position _currentPosition;
-  late Geolocator _geolocator;
+const notificationChannelId = 'my_foreground';
+const notificationId = 888;
+
+Future<void> onStart(ServiceInstance serviceInstance)async{
+
+
   late StreamSubscription<Position> _positionStream;
   late List<Position> _positionHistory;
 
-  @override
-  void initState() {
-    super.initState();
-    addlatlng();
-  }
-
-  void addlatlng() {
     _positionHistory = [];
     _positionStream = Geolocator.getPositionStream(
             locationSettings: const LocationSettings(
@@ -33,11 +30,10 @@ class _HomeCompleteScreenState extends State<HomeCompleteScreen> {
       _positionHistory.add(position);
       debugPrint("pos2 $_positionHistory");
     });
-  }
 
-  double calculateDistance() {
-    double distance = 0;
-    debugPrint("pos3 $_positionHistory");
+  //receivedata to isolate
+  serviceInstance.on("stop").listen((event) {
+    double distance=0;
     for (int i = 0; i < _positionHistory.length - 1; i++) {
       distance += Geolocator.distanceBetween(
           _positionHistory[i].latitude,
@@ -45,7 +41,43 @@ class _HomeCompleteScreenState extends State<HomeCompleteScreen> {
           _positionHistory[i + 1].latitude,
           _positionHistory[i + 1].longitude);
     }
-    return distance;
+
+    if(event!['action']=='stopservice'){
+      //senddata from isolate
+      Map<String,dynamic> dataToSend={'count':distance};
+      serviceInstance.invoke('data',dataToSend);
+      print("MANI data to Send $dataToSend");
+
+  }
+  });
+
+
+}
+
+Future<void> initializeService() async {
+  final service = FlutterBackgroundService();
+  await service.configure(
+      androidConfiguration: AndroidConfiguration(
+      onStart: onStart,
+      autoStart: true,
+      isForegroundMode: true,
+  ), iosConfiguration: IosConfiguration());
+}
+
+
+
+class _HomeCompleteScreenState extends State<HomeCompleteScreen> {
+  late GoogleMapController mapController;
+  late Position _currentPosition;
+  late StreamSubscription<Position> _positionStream;
+  late List<Position> _positionHistory;
+  late double count;
+
+
+  @override
+  void initState() {
+    super.initState();
+    initializeService();
   }
 
   @override
@@ -72,10 +104,25 @@ class _HomeCompleteScreenState extends State<HomeCompleteScreen> {
         Container(
           alignment: Alignment.bottomCenter,
           child: ElevatedButton(
-              onPressed: () {
-                var dis = calculateDistance();
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(" Distance Travelled: $dis")));
+              onPressed: () async{
+
+                var isRunning=await FlutterBackgroundService().isRunning();
+                if(isRunning){
+                  FlutterBackgroundService().invoke('stop',{'action':'stopservice'});
+                }
+
+                FlutterBackgroundService().on('data').listen((event) {
+                  if(event!.isNotEmpty && event!['count']!=null){
+                     count=event!['count'] as double;
+
+                     ScaffoldMessenger.of(context).showSnackBar(
+                         SnackBar(content: Text(" Distance Travelled: $count")));
+                  }
+                });
+
+                debugPrint("MANI on button clicked $count");
+
+
               },
               child: Text("End Trip ")),
         )
@@ -92,4 +139,6 @@ class _HomeCompleteScreenState extends State<HomeCompleteScreen> {
   onTapHome(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.rideInfoScreen);
   }
+
+
 }

@@ -1,14 +1,11 @@
+import 'package:flutter/material.dart';
 
+import '../../core/theme/app_style.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/image_constant.dart';
 import '../../core/utils/size_utils.dart';
+import '../../core/widgets/custom_image_view.dart';
 import '../../routes/app_routes.dart';
-import '../../theme/app_style.dart';
-import '../../widgets/custom_image_view.dart';
-import '/widgets/app_bar/appbar_image.dart';
-import '/widgets/app_bar/appbar_title.dart';
-import '/widgets/app_bar/custom_app_bar.dart';
-import 'package:flutter/material.dart';
 
 class CommunityDetailsScreen extends StatelessWidget {
   @override
@@ -16,27 +13,9 @@ class CommunityDetailsScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
             backgroundColor: ColorConstant.whiteA700,
-            appBar: CustomAppBar(
-                height: getVerticalSize(110.00),
-                leadingWidth: 44,
-                leading: AppbarImage(
-                    height: getSize(25.00),
-                    width: getSize(25.00),
-                    svgPath: ImageConstant.imgMenu,
-                    margin: getMargin(left: 19, top: 63, bottom: 22)),
-                title: AppbarTitle(
-                    text: "ORAM PO AUTO ",
-                    margin: getMargin(left: 9, top: 62, bottom: 20)),
-                actions: [
-                  AppbarImage(
-                      height: getVerticalSize(20.00),
-                      width: getHorizontalSize(25.00),
-                      svgPath: ImageConstant.imgHome,
-                      margin:
-                          getMargin(left: 21, top: 64, right: 21, bottom: 26),
-                      onTap: () => onTapHome11(context))
-                ],
-                styleType: Style.bgFillBlueA200),
+            appBar: AppBar(
+              title: Text("Community Details"),
+            ),
             body: SizedBox(
                 width: size.width,
                 child: SingleChildScrollView(

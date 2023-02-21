@@ -1,11 +1,12 @@
+import 'package:azep/core/utils/user_shared_preferences.dart';
 import 'package:azep/routes/app_routes.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/theme/app_decoration.dart';
+import '../../core/theme/app_style.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/size_utils.dart';
-import '../../theme/app_decoration.dart';
-import '../../theme/app_style.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
+    phoneNumberController.text=UserSharedPreferences.getMobileNo() ==null?'': UserSharedPreferences.getMobileNo() as String;
     final favoriteCountries = ['IN', 'US', 'AE'];
     countryCodePicker = FlCountryCodePicker(
       favorites: favoriteCountries,
@@ -141,8 +143,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: Colors.blueAccent),
-                            onPressed: () {
+                                backgroundColor: Colors.blueAccent),
+                            onPressed: () async{
+                              await UserSharedPreferences.setMobileNo(phoneNumberController.text.trim());
                               if (countryCode != null) {
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                     content: Text(

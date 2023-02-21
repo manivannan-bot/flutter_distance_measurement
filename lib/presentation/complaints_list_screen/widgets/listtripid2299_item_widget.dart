@@ -1,9 +1,8 @@
-
 import 'package:azep/core/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../../../theme/app_decoration.dart';
-import '../../../theme/app_style.dart';
+import '../../../core/theme/app_decoration.dart';
+import '../../../core/theme/app_style.dart';
 
 // ignore: must_be_immutable
 class Listtripid2299ItemWidget extends StatelessWidget {
